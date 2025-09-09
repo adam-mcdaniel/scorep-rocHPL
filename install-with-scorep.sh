@@ -61,10 +61,10 @@ echo "ROCM VERSION: $ROCM_VERSION"
 #             cray-openshmemx/11.7.3 \
 
 
+# export MPICH_GPU_SUPPORT_ENABLED=1
 export OpenMP_CC="scorep-cc"
 export OpenMP_CXX="scorep-CC"
-export LD_LIBRARY_PATH="$CRAY_LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
-# export LD_LIBRARY_PATH=$ROCHPL_ROOT/tpl/blis/lib/:$LD_LIBRARY_PATH
+# export LD_LIBRARY_PATH="$CRAY_LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
 #export SCOREP_WRAPPER_INSTRUMENTER_FLAGS="--libwrap=blis"
 export CRAY_MPICH_PREFIX=$(dirname $(dirname $(which mpicc)))
 export ROCHPL_ROOT=$(pwd)
@@ -75,6 +75,7 @@ rm -rf build
    --with-rocm=${ROCM_PATH} \
    --with-rocblas=${ROCM_PATH} \
    --with-mpi=${CRAY_MPICH_PREFIX} \
+   --with-cpublas=${CRAY_LD_LIBRARY_PATH}/libblas.so \
    --prefix=$PREFIX
 
 # cd $ROCHPL_ROOT/install-pat
