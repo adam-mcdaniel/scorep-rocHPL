@@ -10,7 +10,7 @@ module load libfabric/1.22.0 \
             amd/$ROCM_VERSION \
             cray-mpich/8.1.31 \
             rocm/$ROCM_VERSION \
-            
+
 source ../../setup-env.sh
 
 source ../setup-run-params.sh
@@ -41,14 +41,16 @@ cd "$(dirname "$0")"
 
 export OpenMP_CC=scorep-cc
 export OpenMP_CXX=scorep-CC
-export LD_LIBRARY_PATH=$CRAY_LD_LIBRARY_PATH:$LD_LIBRARY_PATH
-export CRAY_MPICH_PREFIX=$(dirname $(dirname $(which mpicc)))
+# export LD_LIBRARY_PATH=$CRAY_LD_LIBRARY_PATH:$LD_LIBRARY_PATH
+# export CRAY_MPICH_PREFIX=$(dirname $(dirname $(which mpicc)))
 export ROCHPL_ROOT=$(pwd)
 
 export MPICH_GPU_SUPPORT_ENABLED=1
-export LD_LIBRARY_PATH=$ROCHPL_ROOT/tpl/blis/lib/:$LD_LIBRARY_PATH
+# export LD_LIBRARY_PATH=$ROCHPL_ROOT/tpl/blis/lib/:$LD_LIBRARY_PATH
 # export SCOREP_EXPERIMENT_DIRECTORY=$ROCHPL_ROOT/scorep-amd-results
-echo "ScoreP at $SCOREP_EXPERIMENT_DIRECTORY"
-
+echo "ScoreP experiment results at $SCOREP_EXPERIMENT_DIRECTORY"
+if [ ! -d $SCOREP_EXPERIMENT_DIRECTORY ]; then
+  mkdir -p $SCOREP_EXPERIMENT_DIRECTORY
+fi
 srun -A gen010 -t10 -N 2 --ntasks-per-node=1 --gpu-bind=closest $ROCHPL_ROOT/install-scorep-amd/bin/rochpl -P 1 -Q 2 -N 90112 --NB 512
 # $ROCHPL_ROOT/install-scorep-amd/mpirun_rochpl -P 1 -Q 1 -N 64512 --NB 512
