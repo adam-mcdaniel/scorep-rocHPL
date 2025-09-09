@@ -382,7 +382,8 @@ pushd .
 #  export SCOREP_WRAPPER_INSTRUMENTER_FLAGS="--thread=omp:opari2"
 
 #export SCOREP_WRAPPER_INSTRUMENTER_FLAGS="--thread=none"
-
+  export CC=scorep-cc
+  export CXX=scorep-CC
   # Build library with AMD toolchain because of existence of device kernels
   mkdir -p ${build_dir} && cd ${build_dir}
   #SCOREP_WRAPPER=off 
@@ -394,8 +395,8 @@ pushd .
     -DMPI_CXX_LINK_FLAGS="-lmpi_gtl_hsa" \
     -DMPI_CXX_FLAGS="-g -std=c++11" \
     -DMPI_C_FLAGS="-g -std=c++11" \
-    -DCMAKE_CXX_COMPILER="mpicc" \
-    -DCMAKE_C_COMPILER="mpicc" \
+    -DCMAKE_CXX_COMPILER="scorep-CC" \
+    -DCMAKE_C_COMPILER="scorep-cc" \
     -DCMAKE_EXE_LINKER_FLAGS="-lstdc++" \
     -DCMAKE_SHARED_LINKER_FLAGS="-lstdc++" \
     -DCMAKE_CXX_FLAGS="-g -w -std=c++17" ..
