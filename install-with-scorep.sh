@@ -59,7 +59,7 @@ export ROCHPL_ROOT=$(pwd)
 export PREFIX=$ROCHPL_ROOT/install-scorep-amd
 cd $ROCHPL_ROOT
 rm -rf build
-./install_scorep.sh \
+./scorep-install-helper.sh \
    --with-rocm=${ROCM_PATH} \
    --with-rocblas=${ROCM_PATH} \
    --with-mpi=${CRAY_MPICH_PREFIX} \
