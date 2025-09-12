@@ -20,9 +20,6 @@ echo "ROCM VERSION: $ROCM_VERSION"
 
 cd "$(dirname "$0")"
 
-export OpenMP_CC=scorep-cc
-export OpenMP_CXX=scorep-CC
-export LD_LIBRARY_PATH=$CRAY_LD_LIBRARY_PATH:$LD_LIBRARY_PATH
 export ROCHPL_ROOT=$(pwd)
 
 export MPICH_GPU_SUPPORT_ENABLED=1
